@@ -67,7 +67,8 @@ foreach ($results as $result) {
   <p><a href='<?php echo $result->data->url->value->str; ?>'><?php echo $result->data->title->html; ?></a><br />
   Source: <?php echo $result->data->datasource_fqcategory->html; ?></br />
   <?php echo $result->data->mes_date->html; ?><br />
-  <?php echo $result->data->content->html; ?></p>
+  Snippet: <?php echo $result->data->content->html; ?><br />
+  Description: <?php echo $result->data->description->html; ?></p>
 
 <?php
 }
