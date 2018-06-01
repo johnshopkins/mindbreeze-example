@@ -7,7 +7,7 @@
 1. Start the PHP server `php -S localhost:8080`
 1. In a browser, navigate to `localhost:8080`
 
-#### Using the append
+#### Using the app
 
 1. Add a query: add the `q` query string parameter with your given query. Example: http://localhost:8080/?q=science
 1. To add a source constraint, add the `source` query string parameter and give it a value of either `hub`, `gazette`, or `magazine` to limit the datasources that the query is run against. Example: http://localhost:8080/?q=science&source=gazette
