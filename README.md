@@ -5,7 +5,7 @@
 1. Open Terminal
 1. Clone this repository into a directory on your computer. Then `cd` into that directory.
 1. Start the PHP server `php -S localhost:8080`
-1. In a browser, navigate to `localhost:8080`
+1. In a browser, navigate to `localhost:8080?q=science`
 
 #### Using the app
 
