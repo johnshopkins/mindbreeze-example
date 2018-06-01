@@ -18,6 +18,7 @@ require __DIR__ . '/functions.php';
 $page = getPage();
 $query = getQuery();
 $count = 10;
+$source = getSource(); // this will help illustrate how to get results from just one datasource
 
 
 // create HTTP client
@@ -25,7 +26,7 @@ $guzzle = new \GuzzleHttp\Client();
 
 // send the POST request
 $response = $guzzle->post('https://search.jh.edu:23352/api/v2/search', [
-  'body' => getPostBody($query, $page, $count),
+  'body' => getPostBody($query, $page, $count, $source),
   'headers' => ['Content-Type' => 'application/json']
 ]);
 
@@ -60,9 +61,11 @@ $results = cleanResults($body->resultset->results);
 
 // display each result
 foreach ($results as $result) {
+  // print_r($result); die();
 ?>
 
   <p><a href='<?php echo $result->data->url->value->str; ?>'><?php echo $result->data->title->html; ?></a><br />
+  Source: <?php echo $result->data->datasource_fqcategory->html; ?></br />
   <?php echo $result->data->mes_date->html; ?><br />
   <?php echo $result->data->content->html; ?></p>
 

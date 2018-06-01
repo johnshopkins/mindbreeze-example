@@ -33,13 +33,27 @@ function getQuery()
 }
 
 /**
+ * Get the source from the query string
+ * @return string
+ */
+function getSource()
+{
+  if (isset($_GET['source']) && in_array($_GET['source'], ['hub', 'gazette', 'magazine'])) {
+    return $_GET['source'];
+  } else {
+    return null;
+  }
+
+}
+
+/**
  * Generate the POST body
  * @param  string  $query User query
  * @param  integer $page  Requested page of results
  * @param  integer $count Number of results to return
  * @return string  JSON encoded string
  */
-function getPostBody($query, $page = 1, $count = 10)
+function getPostBody($query, $page = 1, $count = 10, $source = null)
 {
   // array of properties we want returned with each result (see below)
   $properties = [
@@ -61,6 +75,13 @@ function getPostBody($query, $page = 1, $count = 10)
     'alternatives_query_spelling_max_estimated_count' => 5, // how many spelling suggestings to return
     'properties' => getProperties($properties)
   ];
+
+
+  if ($source) {
+    $body['source_context']= [
+      'constraints' => addConstraint($source)
+    ];
+  }
 
 
   // add pagination data if we're on page 2+
@@ -86,6 +107,9 @@ function getPostBody($query, $page = 1, $count = 10)
     ];
   }
 
+  // uncomment this print statement to see the POST body
+  // print_r($body); die();
+
   return json_encode($body);
 }
 
@@ -106,6 +130,64 @@ function getProperties($properties)
 }
 
 /**
+ * Limit which datasources are being queried
+ * @param string $constraint Constraint (hub, magazine, gazette)
+ * @return array
+ */
+function addConstraint($constraint)
+{
+  // list of all datasources on Hub index
+  $datasources = [
+    'Web:MagazineArchivesPages',
+    'Web:MagazineArchivesWP',
+    'Web:StagingHub',
+    'Web:GazetteArchivesPages',
+    'Web:GazetteArchivesWP'
+  ];
+
+  // list of the datasources that apply to certain constraints. ex: when you add
+  // a constraint of 'magazine,' only the magazine datasources will be queried
+  $constraints = [
+    'gazette' => ['Web:GazetteArchivesPages', 'Web:GazetteArchivesWP'],
+    'magazine' => ['Web:MagazineArchivesPages', 'Web:MagazineArchivesWP'],
+    'hub' => ['Web:StagingHub']
+  ];
+
+  // datasources that will be queried
+  $in = $constraints[$constraint];
+
+  // datasources that will NOT be queried
+  $out = array_diff($datasources, $in);
+
+  return [
+    'filter_base' => array_map(function ($datasource) {
+      return createFilter('fqcategory', $datasource);
+    }, array_values($in)),
+    'filtered' => array_map(function ($datasource) {
+      return createFilter('fqcategory', $datasource);
+    }, array_values($out))
+  ];
+}
+
+/**
+ * Create boolean filter for datasource constraints
+ * @param  string $label Filter label
+ * @param  string $term  Value of filter
+ * @return array  Filter array
+ */
+function createFilter($label, $term, $type = 'and')
+{
+  return [
+    $type => [
+      [
+        'label' => $label,
+        'quoted_term' => $term
+      ]
+    ]
+  ];
+}
+
+/**
  * Clean up the results from Mindbreeze. Instead of having the
  * result properties numerically indexed, index the properties
  * by the property title for easier retrieval. Upone return,
@@ -120,7 +202,7 @@ function cleanResults($results)
     $result->data = new \StdClass();
 
     foreach ($result->properties as $property) {
-      $name = str_replace(':', '_', strtolower($property->id));
+      $name = str_replace([':', '/'], '_', strtolower($property->id));
       $result->data->$name = $property->data[0];
     }
 
