@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Search results</title>
+  </head>
+  <body>
+
+    <h1>Page {{ page }} results for "{{ query }}"</h1>
+
+    {# display results #}
+
+    {% for record in response.records %}
+
+      <p>
+
+        <a href="{{ record.data.url.value.str }}">{{ record.data.title.html|raw }}</a><br />
+        Source: {{ record.data.datasource_fqcategory.html|raw }}</br />
+        Date: {{ record.data.mes_date.html|raw }}<br />
+        Snippet: {{ record.data.content.html|raw }}<br />
+
+        {% if record.data.description.html is not empty %}
+          Description: {{ record.data.description.html|raw }}
+        {% endif %}
+
+      </p>
+
+    {% endfor %}
+
+    {# pagination #}
+
+    <p>
+
+    {% if response.pagination.prev %}
+      {% set newPage = page - 1 %}
+      <a href="index.php?page={{ newPage }}&q={{ query }}&source={{ source }}">PREV</a>
+    {% endif %}
+
+    {% if response.pagination.next %}
+      {% set newPage = page + 1 %}
+      <a href="index.php?page={{ newPage }}&q={{ query }}&source={{ source }}">NEXT</a>
+    {% endif %}
+
+    </p>
+
+  </body>
+</html>
