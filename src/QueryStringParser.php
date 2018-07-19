@@ -30,7 +30,7 @@ class QueryStringParser
   public function getQuery()
   {
     if (isset($_GET['q']) && !empty($_GET['q'])) {
-      return htmlentities($_GET['q']);
+      return urlencode($_GET['q']);
     } else {
       throw new Exception('Please provide a query via the "q" query string parameter');
     }
