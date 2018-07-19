@@ -18,14 +18,6 @@ class Request extends \Mindbreeze\request
     'icon'                    // screenshot
   ];
 
-  public $datasources = [
-    'Web:MagazineArchivesPages',
-    'Web:MagazineArchivesWP',
-    'Web:StagingHub',
-    'Web:GazetteArchivesPages',
-    'Web:GazetteArchivesWP'
-  ];
-
   public $constraints = [
     'gazette' => ['Web:GazetteArchivesPages', 'Web:GazetteArchivesWP'],
     'hub' => ['Web:StagingHub'],
