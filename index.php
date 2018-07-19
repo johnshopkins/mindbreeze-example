@@ -22,7 +22,6 @@ try {
   }
 
   $response = $request->send();
-  $response->parse();
 
   echo $twig->loadTemplate("search.twig")->render([
     'query' => $query,
