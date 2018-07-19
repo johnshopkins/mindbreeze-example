@@ -8,7 +8,7 @@
   "require": {
     "guzzlehttp/guzzle": "^6.2",
     "johnshopkins/http-exchange": "v0.12.3",
-    "johnshopkins/mindbreeze": "v0.1.*",
+    "johnshopkins/mindbreeze": "v0.2.*",
     "twig/twig": "1.31.*"
   },
   "autoload": {

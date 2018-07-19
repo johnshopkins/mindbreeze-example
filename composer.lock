@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8226cd72d776fd5a9b4af639e23a1b9e",
-    "content-hash": "5a9f6c73129ac24232b324740ce6d01d",
+    "hash": "dbe786daa41c4149dbf09ec447328fc5",
+    "content-hash": "80b3548bc939a2a3d938cdafd916d04b",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -225,16 +225,16 @@
         },
         {
             "name": "johnshopkins/mindbreeze",
-            "version": "v0.1.2",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnshopkins/mindbreeze.git",
-                "reference": "ba10cf678c989acf4ee67f5e05053dadbd4bb9cc"
+                "reference": "4f3124b0d1a09b8bc818afa0bf678fa4ae965930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnshopkins/mindbreeze/zipball/ba10cf678c989acf4ee67f5e05053dadbd4bb9cc",
-                "reference": "ba10cf678c989acf4ee67f5e05053dadbd4bb9cc",
+                "url": "https://api.github.com/repos/johnshopkins/mindbreeze/zipball/4f3124b0d1a09b8bc818afa0bf678fa4ae965930",
+                "reference": "4f3124b0d1a09b8bc818afa0bf678fa4ae965930",
                 "shasum": ""
             },
             "type": "library",
@@ -250,10 +250,10 @@
             ],
             "homepage": "http://github.com/johnshopkins/mindbreeze",
             "support": {
-                "source": "https://github.com/johnshopkins/mindbreeze/tree/v0.1.2",
+                "source": "https://github.com/johnshopkins/mindbreeze/tree/v0.2.1",
                 "issues": "https://github.com/johnshopkins/mindbreeze/issues"
             },
-            "time": "2018-07-18 15:16:15"
+            "time": "2018-07-19 18:50:13"
         },
         {
             "name": "psr/http-message",
