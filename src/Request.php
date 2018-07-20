@@ -18,6 +18,11 @@ class Request extends \Mindbreeze\request
     'icon'                    // screenshot
   ];
 
+  public $facets = [
+    'mes:date',
+    'fqcategory'
+  ];
+
   public $constraints = [
     'gazette' => ['Web:GazetteArchivesPages', 'Web:GazetteArchivesWP'],
     'hub' => ['Web:StagingHub'],
