@@ -7,4 +7,5 @@ $parser = new MindbreezeExample\QueryStringParser();
 $http = new HttpExchange\Adapters\Guzzle6(new \GuzzleHttp\Client());
 
 // twig template engine
-$twig = new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__DIR__) . '/templates'));
+$twig = new \Twig_Environment(new \Twig_Loader_Filesystem(dirname(__DIR__) . '/templates'), ['debug' => true]);
+$twig->addExtension(new Twig_Extension_Debug());
