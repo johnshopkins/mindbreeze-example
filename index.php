@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set("America/New_York");
+
 // start session
 session_start();
 
@@ -9,19 +11,28 @@ require __DIR__ . '/config/deps.php';
 
 try {
 
-  $query = $parser->getQuery();
   $page = $parser->getPage();
-  $source = $parser->getSource();
+  $query = $parser->getQuery();
 
   // create mindbreeze request
   $request = new MindbreezeExample\Request($http);
-  $request->setQuery($query)->setPage($page);
+  $request->setPage($page)->setQuery($query);
 
-  if ($source) {
+  if ($source = $parser->getSource()) {
     $request->addDatasourceConstraint($source);
   }
 
+  if ($year = $parser->getYear()) {
+    $request->addDateConstraint($year[0], $year[1]);
+  }
+
+  if ($type = $parser->getType()) {
+    $request->addConstraint('Type', 'term', $type);
+  }
+
   $response = $request->send();
+
+  // print_r($response->records); die();
 
   echo $twig->loadTemplate("search.twig")->render([
     'query' => $query,
