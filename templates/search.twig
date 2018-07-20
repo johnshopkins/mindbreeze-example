@@ -8,6 +8,8 @@
 
     <h1>Page {{ page }} results for "{{ query }}"</h1>
 
+    <p>Total results: {{ response.pagination.total }}</p>
+
     {# display results #}
 
     {% for record in response.records %}
@@ -15,7 +17,8 @@
       <p>
 
         <a href="{{ record.data.url.value.str }}">{{ record.data.title.html|raw }}</a><br />
-        Source: {{ record.data.datasource_fqcategory.html|raw }}</br />
+        Source: {{ record.data.type.html|raw }}</br />
+        Type: {{ record.data.datasource_fqcategory.html|raw }}</br />
         Date: {{ record.data.mes_date.html|raw }}<br />
         Snippet: {{ record.data.content.html|raw }}<br />
 
